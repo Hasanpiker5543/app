@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* تغيير لون الخطوط */
+        table.table-bordered {
+            border-color: #000000 !important; /* لون الأخضر */
+        }
+        table.table-bordered th,
+        table.table-bordered td {
+            border-color: #000000 !important; /* نفس اللون للخلايا */
+        }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Item List</h1>
+        
+        <!-- Search Form -->
+        <form method="GET" action="/search" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Search..." value="{{ request.args.get('query', '') }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <!-- Add Item Form -->
+        <form method="POST" action="/add" class="mb-4">
+            <div class="row g-3">
+                <!-- الصف الأول -->
+                <div class="col-md-4">
+                    <label for="sous_famille" class="form-label">Sous Famille</label>
+                    <input type="text" id="sous_famille" name="sous_famille" class="form-control" placeholder="Sous Famille" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="designation_article" class="form-label">Designation Article</label>
+                    <input type="text" id="designation_article" name="designation_article" class="form-control" placeholder="Designation Article" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="activite" class="form-label">Activite</label>
+                    <input type="text" id="activite" name="activite" class="form-control" placeholder="Activite" required>
+                </div>
+            </div>
+            
+            <div class="row g-3 mt-2">
+                <!-- الصف الثاني -->
+                <div class="col-md-4">
+                    <label for="marque" class="form-label">Marque</label>
+                    <input type="text" id="marque" name="marque" class="form-control" placeholder="Marque" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="modele" class="form-label">Modele</label>
+                    <input type="text" id="modele" name="modele" class="form-control" placeholder="Modele" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="code_onee" class="form-label">Code ONEE</label>
+                    <input type="text" id="code_onee" name="code_onee" class="form-control" placeholder="Code ONEE" required>
+                </div>
+            </div>
+            
+            <div class="row g-3 mt-2">
+                <!-- الصف الثالث -->
+                <div class="col-md-4">
+                    <label for="numero_de_serie" class="form-label">Numero de Serie</label>
+                    <input type="text" id="numero_de_serie" name="numero_de_serie" class="form-control" placeholder="Numero de Serie" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="affectataire_nom" class="form-label">Nom Affectataire</label>
+                    <input type="text" id="affectataire_nom" name="affectataire_nom" class="form-control" placeholder="Nom Affectataire" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="affectataire_matricule" class="form-label">Matricule Affectataire</label>
+                    <input type="text" id="affectataire_matricule" name="affectataire_matricule" class="form-control" placeholder="Matricule Affectataire" required>
+                </div>
+            </div>
+            
+            <div class="row g-3 mt-2">
+                <!-- الصف الرابع -->
+                <div class="col-md-6">
+                    <label for="entite" class="form-label">Entite</label>
+                    <input type="text" id="entite" name="entite" class="form-control" placeholder="Entite" required>
+                </div>
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">Add Item</button>
+                </div>
+            </div>
+        </form>
+        
+
+        <!-- Items Table -->
+        <!-- Items Table -->
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sous Famille</th>
+            <th>Designation Article</th>
+            <th>Activite</th>
+            <th>Marque</th>
+            <th>Modele</th>
+            <th>Code ONEE</th>
+            <th>Numero de Serie</th>
+            <th>Nom Affectataire</th>
+            <th>Matricule Affectataire</th>
+            <th>Entite</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.sous_famille }}</td>
+            <td>{{ item.designation_article }}</td>
+            <td>{{ item.activite }}</td>
+            <td>{{ item.marque }}</td>
+            <td>{{ item.modele }}</td>
+            <td>{{ item.code_onee }}</td>
+            <td>{{ item.numero_de_serie }}</td>
+            <td>{{ item.affectataire_nom }}</td>
+            <td>{{ item.affectataire_matricule }}</td>
+            <td>{{ item.entite }}</td>
+            <td><a href="/delete/{{ item.id }}" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+</body>
+</html>
